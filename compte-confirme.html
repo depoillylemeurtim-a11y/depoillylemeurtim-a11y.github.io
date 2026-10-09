@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloom — Adresse confirmée</title>
+<style>
+  body { margin: 0; background: #F4FBF1; color: #3C3C3C; font: 17px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width: 520px; margin: 0 auto; padding: 72px 24px; text-align: center; }
+  .icon { font-size: 64px; line-height: 1; }
+  h1 { color: #2E8B57; font-size: 26px; margin: 20px 0 10px; }
+  p { margin: 0 0 12px; }
+  .hint { color: #8A8A8A; font-size: 15px; margin-top: 28px; }
+  a { color: #2E8B57; }
+  #error { display: none; }
+</style>
+</head>
+<body>
+<main>
+  <div id="ok">
+    <div class="icon">🌻</div>
+    <h1>Ton adresse est confirmée !</h1>
+    <p>Merci. Tu peux maintenant retourner dans l'app <strong>Bloom</strong> et te connecter avec ton e-mail et ton mot de passe.</p>
+    <p class="hint">Tu peux fermer cette page.</p>
+  </div>
+  <div id="error">
+    <div class="icon">⏳</div>
+    <h1>Ce lien n'est plus valable</h1>
+    <p>Le lien de confirmation a peut-être expiré ou a déjà été utilisé. Essaie de te connecter dans l'app Bloom : si ton adresse est déjà confirmée, ça fonctionnera.</p>
+    <p class="hint">Besoin d'aide ? Écris-nous à <a href="mailto:depoillylemeurtim@gmail.com">depoillylemeurtim@gmail.com</a>.</p>
+  </div>
+</main>
+<script>
+  // Supabase redirects here after checking the link; errors come back in the URL (#error=... or ?error=...).
+  if (/[#&?]error/.test(location.hash + location.search)) {
+    document.getElementById('ok').style.display = 'none';
+    document.getElementById('error').style.display = 'block';
+  }
+  // Don't keep the login tokens Supabase appends to the address.
+  if (location.hash) history.replaceState(null, '', location.pathname);
+</script>
+</body>
+</html>
